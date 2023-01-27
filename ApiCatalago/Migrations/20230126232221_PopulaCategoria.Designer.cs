@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCatalago.Migrations
 {
     [DbContext(typeof(ApiCatalagoDbContext))]
-    [Migration("20230126205304_InitMigrations")]
-    partial class InitMigrations
+    [Migration("20230126232221_PopulaCategoria")]
+    partial class PopulaCategoria
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,10 +34,14 @@ namespace ApiCatalago.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.HasKey("Id");
 
@@ -59,19 +63,26 @@ namespace ApiCatalago.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Descrição")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<float?>("Estoque")
                         .HasColumnType("real");
 
                     b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
-                    b.Property<double?>("Preco")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Preco")
+                        .IsRequired()
+                        .HasColumnType("decimal(10,2)");
 
                     b.HasKey("Id");
 

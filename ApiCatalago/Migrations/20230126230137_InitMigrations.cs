@@ -33,7 +33,7 @@ namespace ApiCatalago.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descrição = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Preco = table.Column<double>(type: "float", nullable: true),
+                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Estoque = table.Column<float>(type: "real", nullable: true),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
