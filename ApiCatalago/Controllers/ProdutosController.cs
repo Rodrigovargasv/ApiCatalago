@@ -85,7 +85,7 @@ namespace ApiCatalago.Controllers
                 return NotFound("Produto não encontrado");
             }
 
-            _context.Remove(id);
+            _context.Remove(produto);
             _context.SaveChanges();
 
             return Ok();
