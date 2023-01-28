@@ -1,45 +1,27 @@
-﻿using ApiCatalago.Models;
+﻿using ApiCatalago.Context;
+using ApiCatalago.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiCatalago.Controllers
 {
-    [Route("api/[controller]/{action}")]
+    [Route("api/[controller]/")]
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        [HttpGet]
-        public string listaProduto()
+
+        private readonly ApiCatalagoDbContext _context;
+
+        public CategoriasController(ApiCatalagoDbContext context)
         {
-            var name = "";
-            var produtos = new List<string>();
-            produtos.Add("das");
-
-            produtos.Add("Rodrigo");
-            foreach (var produto in produtos)
-            {
-                name = produto.ToString();
-
-            }
-            return name;
-
+            _context = context;
         }
-        [HttpGet]
-        public string listaProduto1()
-        {
-            var name = "";
-            var produtos = new List<string>();
-            produtos.Add("das");
 
 
-            foreach (var produto in produtos)
-            {
-                name = produto.ToString();
 
-            }
-            return name;
-
-        }
+        
+        
+       
     }
 }
 
