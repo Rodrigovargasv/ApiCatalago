@@ -23,27 +23,16 @@ namespace ApiCatalago.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> Get()
         {
-            var categorias = _context.Categorias.ToList();
-
-            if (categorias is null)
-            {
-                return NotFound("Categoria não encontrada");
-            }
-            return Ok(categorias);
+            
+            return _context.Categorias.AsNoTracking().ToList();
 
         }
 
         [HttpGet("produtos")]
         public ActionResult<IEnumerable<Categoria>> GetAll()
         {
-            var categoria = _context.Categorias.Include(p => p.Produtos).ToList();
-
-            if (categoria is null)
-            {
-                return NotFound("Lista de Categoria e produtos não encontrado");
-            }
-
-            return Ok(categoria);
+           
+            return _context.Categorias.Include(p => p.Produtos).Where(c => c.Id <= 20).ToList();
         }
 
 

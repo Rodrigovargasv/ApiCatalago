@@ -23,20 +23,15 @@ namespace ApiCatalago.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
-            var produtos = _context.Produtos.ToList();
-
-            if (produtos is null)
-            {
-                return NotFound("Produtos não encontrados");
-            }
-            return produtos;
+           
+            return _context.Produtos.AsNoTracking().ToList();
         }
 
         // traz o produtos com id especificado no parametro
         [HttpGet("{id:int}", Name = "ObterProduto")]
         public ActionResult<Produto> GetId(int id)
         {
-            var getID = _context.Produtos.FirstOrDefault(x => x.Id == id);
+            var getID = _context.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
 
             if (getID is null)
             {

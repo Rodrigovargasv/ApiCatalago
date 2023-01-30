@@ -19,7 +19,7 @@ namespace ApiCatalago.Models
         [MaxLength(300)]  
         public string? ImageUrl { get; set; }
 
-        [JsonIgnore]
+        
         public ICollection<Produto>? Produtos { get; set; }
 
         public Categoria()
