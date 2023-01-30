@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiCatalago.Models
 {
@@ -29,7 +30,10 @@ namespace ApiCatalago.Models
 
         [Required]
         public DateTime DataCadastro { get; set; }
+
+        [JsonIgnore]
         public Categoria? Categoria { get; set; }
+
         public int? CategoriaId { get; set; }
 
 

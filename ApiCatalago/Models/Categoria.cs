@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ApiCatalago.Models
 {
@@ -17,6 +18,8 @@ namespace ApiCatalago.Models
         [Required]
         [MaxLength(300)]  
         public string? ImageUrl { get; set; }
+
+        [JsonIgnore]
         public ICollection<Produto>? Produtos { get; set; }
 
         public Categoria()
