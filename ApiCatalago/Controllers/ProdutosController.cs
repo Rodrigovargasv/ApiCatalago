@@ -23,68 +23,103 @@ namespace ApiCatalago.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Produto>> Get()
         {
-           
-            return _context.Produtos.AsNoTracking().ToList();
+
+            try
+            {
+                return _context.Produtos.AsNoTracking().ToList();
+            }
+            catch (Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+            }
         }
 
         // traz o produtos com id especificado no parametro
         [HttpGet("{id:int}", Name = "ObterProduto")]
         public ActionResult<Produto> GetId(int id)
         {
-            var getID = _context.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
-
-            if (getID is null)
+            try
             {
-                return NotFound("Produtos não encontrados");
+                var getID = _context.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
+
+                if (getID is null)
+                {
+                    return NotFound($"Produto com id={id} não encontrado");
+                }
+                return Ok(getID);
             }
-            return Ok(getID);
+            catch(Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+            }
         }
 
         //cria um produto na tabela produtos
         [HttpPost]
         public ActionResult Post(Produto produto)
         {
-            if (produto is null)
+            try
             {
-                return BadRequest();
+                if (produto is null)
+                {
+                    return BadRequest("Não foi posssivel criar um novo produto");
+                }
+
+                _context.Produtos.Add(produto);
+                _context.SaveChanges();
+
+                return new CreatedAtRouteResult("ObterProduto", new { id = produto.Id, produto });
             }
-
-            _context.Produtos.Add(produto);
-            _context.SaveChanges();
-
-            return new CreatedAtRouteResult("ObterProduto", new {id = produto.Id, produto });
+            catch(Exception) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+            }
 ;        }
 
 
         [HttpPut("{id:int}")]
         public ActionResult Put(Produto produto, int id) 
         {
-            if (id != produto.Id) 
-            { 
-                return BadRequest();
+            try
+            {
+                if (id != produto.Id)
+                {
+                    return BadRequest($"NÃO foi possivel atualiza o produto pois o Id={id} não existe");
+                }
+
+                var p = _context.Produtos.Update(produto);
+                _context.SaveChanges();
+
+                return Ok();
             }
-
-            var p = _context.Produtos.Update(produto);
-            _context.SaveChanges();
-
-            return Ok();
+            catch(Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+            }
         }
 
         [HttpDelete("id:int")]
         public ActionResult Delete(int id)
         {
-            var produto = _context.Produtos.FirstOrDefault(x =>x.Id == id);
-
-            if(produto is null)
+            try
             {
-                return NotFound("Produto não encontrado");
+                var produto = _context.Produtos.FirstOrDefault(x => x.Id == id);
+
+                if (produto is null)
+                {
+                    return NotFound($"Produto com id={id} não encontrado");
+                }
+
+                _context.Remove(produto);
+                _context.SaveChanges();
+
+                return Ok();
+
             }
-
-            _context.Remove(produto);
-            _context.SaveChanges();
-
-            return Ok();
-
+            catch(Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar sua solicitação");
+            }
         }
     }
 }

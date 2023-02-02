@@ -19,6 +19,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    //configura middleware para capturar exceções não tratadas e usar trantamento de erro de forma personalizada
+    app.UseExceptionHandler("/Error");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
