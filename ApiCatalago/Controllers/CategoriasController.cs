@@ -50,7 +50,7 @@ namespace ApiCatalago.Controllers
         }
 
 
-        [HttpGet("{id:int}", Name = "ObterCategoria")]
+        [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")]
         public ActionResult<Categoria> GetId(int id)
         {
             try
@@ -94,7 +94,7 @@ namespace ApiCatalago.Controllers
 
 
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int:min(1)}")]
         public ActionResult Put(Categoria categoria, int id)
         {
             try

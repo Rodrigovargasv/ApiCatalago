@@ -35,7 +35,7 @@ namespace ApiCatalago.Controllers
         }
 
         // traz o produtos com id especificado no parametro
-        [HttpGet("{id:int}", Name = "ObterProduto")]
+        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
         public ActionResult<Produto> GetId(int id)
         {
             try
@@ -77,7 +77,7 @@ namespace ApiCatalago.Controllers
 ;        }
 
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int:min(1)}")]
         public ActionResult Put(Produto produto, int id) 
         {
             try
@@ -98,7 +98,7 @@ namespace ApiCatalago.Controllers
             }
         }
 
-        [HttpDelete("id:int")]
+        [HttpDelete("id:int:min(1)")]
         public ActionResult Delete(int id)
         {
             try
