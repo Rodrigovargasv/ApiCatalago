@@ -21,12 +21,12 @@ namespace ApiCatalago.Controllers
 
 
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetAsync()
         {
 
             try
             {
-                return _context.Categorias.AsNoTracking().ToList();
+                return await _context.Categorias.AsNoTracking().ToListAsync();
             }
             catch(Exception)
             {
@@ -36,12 +36,12 @@ namespace ApiCatalago.Controllers
         }
 
         [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetAll()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetAllAsync()
         {
 
             try
             {
-                return _context.Categorias.Include(p => p.Produtos).Where(c => c.Id <= 20).ToList();
+                return await _context.Categorias.Include(p => p.Produtos).Where(c => c.Id <= 20).ToListAsync();
             }
             catch(Exception)
             {
@@ -51,11 +51,11 @@ namespace ApiCatalago.Controllers
 
 
         [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> GetId(int id)
+        public async Task<ActionResult<Categoria>> GetIdAsync(int id)
         {
             try
             {
-                var getId = _context.Categorias.AsNoTracking().FirstOrDefault(p => p.Id == id);
+                var getId = await _context.Categorias.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
 
                 if (getId is null)
                 {
@@ -72,7 +72,7 @@ namespace ApiCatalago.Controllers
 
 
         [HttpPost]
-        public ActionResult Post(Categoria categoria)
+        public async Task<ActionResult> PostAsync(Categoria categoria)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 _context.Categorias.Add(categoria);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return new CreatedAtRouteResult("ObterCategoria",
                     new { id = categoria.Id, categoria });
             }
@@ -95,7 +95,7 @@ namespace ApiCatalago.Controllers
 
 
         [HttpPut("{id:int:min(1)}")]
-        public ActionResult Put(Categoria categoria, int id)
+        public async Task<ActionResult> PutAsync(Categoria categoria, int id)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 var p = _context.Categorias.Update(categoria);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok();
             }
@@ -116,11 +116,11 @@ namespace ApiCatalago.Controllers
         }
 
         [HttpDelete("id:int")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             try
             {
-                var categoria = _context.Categorias.FirstOrDefault(x => x.Id == id);
+                var categoria = await _context.Categorias.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (categoria is null)
                 {
@@ -128,7 +128,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 _context.Remove(categoria);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok();
             }
