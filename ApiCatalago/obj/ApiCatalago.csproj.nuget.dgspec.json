@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj": {}
+    "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj": {}
   },
   "projects": {
-    "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj": {
+    "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+        "projectUniqueName": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
         "projectName": "ApiCatalago",
-        "projectPath": "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+        "projectPath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
         "packagesPath": "C:\\Users\\revon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\obj\\",
+        "outputPath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\revon\\AppData\\Roaming\\NuGet\\NuGet.Config",

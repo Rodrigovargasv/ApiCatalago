@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UVf1ZXJekW3F6TG6gv66midJNRySG52/rmjJktQ1IkTpQx525yE9d6oW/tcEwukXGEsjtO1GFwAbEbTiqd36jg==",
+  "dgSpecHash": "gcZfrgs9yfYr5ei0dRLs62ri/L8ev5wRtAxlDd9V2wlpZ5G4KKhF9sQcU//RTi6x3VMqk2DVFQT0ZLoXlOomhg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\revon\\Desktop\\ApiCalogue\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+  "projectFilePath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\revon\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\revon\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
