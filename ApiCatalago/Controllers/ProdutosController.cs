@@ -13,7 +13,7 @@ namespace ApiCatalago.Controllers
         // instancia a conexão com banco de dados
         private readonly ApiCatalagoDbContext _context;
 
-        // injeta a dependencia
+        // injeta a dependencia via construtor
         public ProdutosController(ApiCatalagoDbContext context)
         {
             _context = context;
@@ -21,12 +21,12 @@ namespace ApiCatalago.Controllers
 
         // traz todos os produtos na tabela produtos
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
         {
 
             try
             {
-                return _context.Produtos.AsNoTracking().ToList();
+                return await _context.Produtos.AsNoTracking().ToListAsync();
             }
             catch (Exception) 
             {
@@ -36,11 +36,11 @@ namespace ApiCatalago.Controllers
 
         // traz o produtos com id especificado no parametro
         [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
-        public ActionResult<Produto> GetId(int id)
+        public async Task<ActionResult<Produto>> GetIdAsync(int id)
         {
             try
             {
-                var getID = _context.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                var getID = await _context.Produtos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
                 if (getID is null)
                 {
@@ -56,7 +56,7 @@ namespace ApiCatalago.Controllers
 
         //cria um produto na tabela produtos
         [HttpPost]
-        public ActionResult Post(Produto produto)
+        public async Task<ActionResult> PostAsync(Produto produto)
         {
             try
             {
@@ -66,7 +66,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 _context.Produtos.Add(produto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return new CreatedAtRouteResult("ObterProduto", new { id = produto.Id, produto });
             }
@@ -78,7 +78,7 @@ namespace ApiCatalago.Controllers
 
 
         [HttpPut("{id:int:min(1)}")]
-        public ActionResult Put(Produto produto, int id) 
+        public async Task<ActionResult> PutAsync(Produto produto, int id) 
         {
             try
             {
@@ -88,7 +88,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 var p = _context.Produtos.Update(produto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok();
             }
@@ -98,12 +98,12 @@ namespace ApiCatalago.Controllers
             }
         }
 
-        [HttpDelete("id:int:min(1)")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{id:int:min(1)}")]
+        public async Task<ActionResult> DeleteAsync(int id)
         {
             try
             {
-                var produto = _context.Produtos.FirstOrDefault(x => x.Id == id);
+                var  produto = await _context.Produtos.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (produto is null)
                 {
@@ -111,7 +111,7 @@ namespace ApiCatalago.Controllers
                 }
 
                 _context.Remove(produto);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
 
                 return Ok();
 
