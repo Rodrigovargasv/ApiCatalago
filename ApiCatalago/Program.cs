@@ -1,5 +1,6 @@
 using ApiCatalago.Context;
 using ApiCatalago.Extensions;
+using ApiCatalago.Logging;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -19,14 +20,25 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("ApiCatagoDbConte
 
 var app = builder.Build();
 
+// adcionado serviço de logger
+var loggerFactory = app.Services.GetRequiredService<ILoggerFactory>();
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     //configura middleware para capturar exceções não tratadas e usar trantamento de erro de forma personalizada
     app.UseExceptionHandler("/Error");
+
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+loggerFactory.AddProvider(new CustomLoggerProvider(new CustomLoggerProviderConfiguration
+{
+    LogLevel= LogLevel.Information
+})); 
+
 // adciona o middleware de tratamento de erros de forma global
 app.ConfigureExceptionHandler();
 
