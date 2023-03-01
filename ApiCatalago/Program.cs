@@ -1,4 +1,5 @@
 using ApiCatalago.Context;
+using ApiCatalago.Extensions;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -26,6 +27,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+// adciona o middleware de tratamento de erros de forma global
+app.ConfigureExceptionHandler();
 
 app.UseHttpsRedirection();
 
