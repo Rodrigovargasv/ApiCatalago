@@ -1,5 +1,7 @@
 ﻿using ApiCatalago.Context;
+using ApiCatalago.DTOS;
 using ApiCatalago.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,20 +15,29 @@ namespace ApiCatalago.Controllers
         // instancia a conexão com banco de dados
         private readonly ApiCatalagoDbContext _context;
 
+        // injetando serviço via construtor
+        private readonly IMapper _mapper;
+
         // injeta a dependencia via construtor
-        public ProdutosController(ApiCatalagoDbContext context)
+        public ProdutosController(ApiCatalagoDbContext context, IMapper mapper)
         {
             _context = context;
-        }
+            _mapper = mapper;
+        }  
 
         // traz todos os produtos na tabela produtos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produto>>> GetAsync()
+        public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAsync()
         {
 
             try
             {
-                return await _context.Produtos.AsNoTracking().ToListAsync();
+
+                var produtos = await _context.Produtos.AsNoTracking().ToListAsync();
+
+                var produtoDTO = _mapper.Map<List<ProdutoDTO>>(produtos);
+
+                return Ok(produtoDTO);
             }
             catch (Exception) 
             {
@@ -46,7 +57,9 @@ namespace ApiCatalago.Controllers
                 {
                     return NotFound($"Produto com id={id} não encontrado");
                 }
-                return Ok(getID);
+
+                var produtosDto = _mapper.Map<Produto>(getID);
+                return Ok(produtosDto);
             }
             catch(Exception) 
             {
@@ -56,10 +69,12 @@ namespace ApiCatalago.Controllers
 
         //cria um produto na tabela produtos
         [HttpPost]
-        public async Task<ActionResult> PostAsync(Produto produto)
+        public async Task<ActionResult> PostAsync(ProdutoDTO produtoDto)
         {
             try
             {
+                var produto = _mapper.Map<Produto>(produtoDto);
+
                 if (produto is null)
                 {
                     return BadRequest("Não foi posssivel criar um novo produto");
@@ -68,7 +83,9 @@ namespace ApiCatalago.Controllers
                 _context.Produtos.Add(produto);
                 await _context.SaveChangesAsync();
 
-                return new CreatedAtRouteResult("ObterProduto", new { id = produto.Id, produto });
+                var produtoDTO = _mapper.Map<ProdutoDTO>(produto);
+
+                return new CreatedAtRouteResult("ObterProduto", new { id = produto.Id, produtoDTO});
             }
             catch(Exception) 
             {
@@ -78,16 +95,18 @@ namespace ApiCatalago.Controllers
 
 
         [HttpPut("{id:int:min(1)}")]
-        public async Task<ActionResult> PutAsync(Produto produto, int id) 
+        public async Task<ActionResult> PutAsync(ProdutoDTO produtoDto, int id) 
         {
             try
             {
-                if (id != produto.Id)
+                if (id != produtoDto.Id)
                 {
                     return BadRequest($"NÃO foi possivel atualiza o produto pois o Id={id} não existe");
                 }
 
-                var p = _context.Produtos.Update(produto);
+                var produto = _mapper.Map<Produto>(produtoDto);
+
+                _context.Produtos.Update(produto);
                 await _context.SaveChangesAsync();
 
                 return Ok();
@@ -113,7 +132,9 @@ namespace ApiCatalago.Controllers
                 _context.Remove(produto);
                 await _context.SaveChangesAsync();
 
-                return Ok();
+                var produtoDto = _mapper.Map<ProdutoDTO>(produto);
+
+                return Ok(produtoDto);
 
             }
             catch(Exception)

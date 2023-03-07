@@ -25,6 +25,9 @@ internal class Program
         builder.Services.AddDbContext<ApiCatalagoDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("ApiCatagoDbContext"), builder => builder.MigrationsAssembly("ApiCatalago")));
 
+        // adicionado serviço do automapper
+        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
         var app = builder.Build();
 
         // adicionado serviço de logger
@@ -35,19 +38,6 @@ internal class Program
         {
             LogLevel = LogLevel.Information
         }));
-
-        
-  
-        // configurando serviço do automapper
-        var mappingConfig = new MapperConfiguration(mc =>
-        {
-            mc.AddProfile(new MappingProfile());
-        });
-
-        IMapper mapper = mappingConfig.CreateMapper();
-
-        // adiciona serviço do AutoMapper
-        builder.Services.AddSingleton(mapper);
 
 
         // Configure the HTTP request pipeline.

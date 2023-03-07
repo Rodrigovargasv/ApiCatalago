@@ -227,3 +227,5 @@ C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\obj\Debug\net7.0\ApiC
 C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\obj\Debug\net7.0\ApiCatalago.genruntimeconfig.cache
 C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\obj\Debug\net7.0\ref\ApiCatalago.dll
 C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\bin\Debug\net7.0\AutoMapper.dll
+C:\Users\revon\Desktop\ApiCatalogo\ApiCatalago\ApiCatalago\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
