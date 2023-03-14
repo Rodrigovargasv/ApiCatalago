@@ -4,6 +4,7 @@ using ApiCatalago.Extensions;
 using ApiCatalago.Logging;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
@@ -27,6 +28,11 @@ internal class Program
 
         // adicionado serviço do automapper
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+        // adicionando serviço de autenticação de usuario
+         builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApiCatalagoDbContext>()
+            .AddDefaultTokenProviders();
 
         var app = builder.Build();
 
@@ -54,6 +60,9 @@ internal class Program
         app.ConfigureExceptionHandler();
 
         app.UseHttpsRedirection();
+
+        // adiciona o middleware de autenticacao
+        app.UseAuthentication();
 
         app.UseAuthorization();
 

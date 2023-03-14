@@ -18,7 +18,7 @@ namespace ApiCatalago.Models
         [StringLength(300)]
         public string? Descrição { get; set; }
 
-        [Column(TypeName ="decimal(10,2)")]
+        [Column(TypeName ="decimal(8,2)")]
         [Required]
         public decimal? Preco { get; set; }
 
