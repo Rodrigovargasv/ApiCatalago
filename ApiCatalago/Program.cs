@@ -3,9 +3,13 @@ using ApiCatalago.DTOS.Mappings;
 using ApiCatalago.Extensions;
 using ApiCatalago.Logging;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+
+using System.Text;
 using System.Text.Json.Serialization;
 
 internal class Program
@@ -30,9 +34,32 @@ internal class Program
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
         // adicionando serviço de autenticação de usuario
-         builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+        builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<ApiCatalagoDbContext>()
             .AddDefaultTokenProviders();
+
+        //JWT
+        // adiciona o manipulador de autenticação e define o 
+        // esquema de autenticação usando : Bearer
+        // valida o emissor, e audiencia e a chave 
+        // usando a chave secreta valida a assinatura
+        builder.Services.AddAuthentication
+        (
+            JwtBearerDefaults.AuthenticationScheme).
+            AddJwtBearer(options =>
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuer= true,
+                ValidateAudience= true,
+                ValidateLifetime= true,
+                ValidAudience = Configuration["TokenConfiguration:Audience"],
+                ValidIssuer = Configuration["TokenConfiguration:Issuer"],
+                ValidateIssuerSigningKey= true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+            }
+        );
+
+  
 
         var app = builder.Build();
 
