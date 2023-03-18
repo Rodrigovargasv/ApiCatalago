@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-
+using System.Configuration;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -49,13 +49,13 @@ internal class Program
             AddJwtBearer(options =>
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer= true,
-                ValidateAudience= true,
-                ValidateLifetime= true,
-                ValidAudience = Configuration["TokenConfiguration:Audience"],
-                ValidIssuer = Configuration["TokenConfiguration:Issuer"],
+                ValidateIssuer = true,
+                ValidateAudience =  true,
+                ValidateLifetime = true,
+                ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
+                ValidIssuer = builder.Configuration["TokenConfiguration:Issuer"],
                 ValidateIssuerSigningKey= true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
             }
         );
 
