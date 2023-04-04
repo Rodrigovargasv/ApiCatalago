@@ -14,16 +14,16 @@ namespace ApiCatalago.Controllers
     [ApiController]
     public class AutorizaController : ControllerBase
     {
-        // Definando instancias do identity Manager
+        // Definando instâncias do identity Manager
         private readonly UserManager<IdentityUser> _UserManager;
 
         private readonly SignInManager<IdentityUser> _SignInManager;
 
-        // Definando inestancia de Iconfiguration
+        // Definando instância de Iconfiguration
         private readonly IConfiguration _configuration;
 
 
-        // injetando instancias de UserManager e SignInManager, ICofiguration via construtor.
+        // injetando instâncias de UserManager e SignInManager, ICofiguration via construtor.
         public AutorizaController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, IConfiguration configuration)
         {
             _UserManager = userManager;
@@ -77,7 +77,7 @@ namespace ApiCatalago.Controllers
                 return BadRequest(ModelState.Values.SelectMany(e => e.Errors));
             }
 
-            // verifica as crendencias do usuário e retorna um valor
+            // verifica as crendências do usuário e retorna um valor
             var result = await _SignInManager.PasswordSignInAsync(
                 userInfo.Email, userInfo.Password, 
                 isPersistent: false, lockoutOnFailure: false);
@@ -106,7 +106,7 @@ namespace ApiCatalago.Controllers
             };
 
             // gera uma chave com base em um algoritimo simetrico
-            var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtConstants:Key"]));
+            var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
 
             // gera a assinatura digital do token susando o algoritimo Hmac e a chave privada
             var credencias = new SigningCredentials(Key, SecurityAlgorithms.HmacSha256);
@@ -126,7 +126,7 @@ namespace ApiCatalago.Controllers
 
             );
 
-            // retorna os dados com o token e informações
+            // retorna os dados com o token e as informações
             return new UsuarioToken()
             {
                 Authenticated = true,
