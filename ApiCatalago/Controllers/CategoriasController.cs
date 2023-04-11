@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalago.Controllers
 {
-    
-    [Route("api/[controller]/")]
+    [ApiVersion("1.0")]
+    [Route("api/v{v:apiVersion}/[controller]/")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class CategoriasController : ControllerBase

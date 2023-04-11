@@ -6,6 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -88,8 +89,14 @@ internal class Program
             }
         );
 
-  
-
+        // adicionando serviço de versionamento
+        builder.Services.AddApiVersioning(option =>
+        {
+            option.AssumeDefaultVersionWhenUnspecified = true;
+            option.DefaultApiVersion = new ApiVersion(1,0);
+            option.ReportApiVersions = true;
+        });
+    
         var app = builder.Build();
 
         // adicionado serviço de logger
@@ -122,7 +129,7 @@ internal class Program
         // adiciona o middleware de autenticacao
         app.UseAuthentication();
         app.UseAuthorization();
-
+      
         app.MapControllers();
         app.Run();
     }
