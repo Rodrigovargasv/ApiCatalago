@@ -10,26 +10,27 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalago.Controllers
 {
+    
     [ApiVersion("1.0")]
     [Route("api/v{v:apiVersion}/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+   
     public class ProdutosController : ControllerBase
     {
-        // instancia a conexão com banco de dados
+        // Instância a conexão com banco de dados
         private readonly ApiCatalagoDbContext _context;
 
-        // injetando serviço via construtor
+        // Injetando serviço via construtor
         private readonly IMapper _mapper;
 
-        // injeta a dependencia via construtor
+        // Injeta a dependencia via construtor
         public ProdutosController(ApiCatalagoDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
-        }  
+        }
 
-        // traz todos os produtos na tabela produtos
+        // Retorna todos os produtos da tabela produtos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProdutoDTO>>> GetAsync()
         {
@@ -49,7 +50,8 @@ namespace ApiCatalago.Controllers
             }
         }
 
-        // traz o produtos com id especificado no parametro
+
+        // Retorna o produto com id especificado no parametro
         [HttpGet("{id:int:min(1)}", Name = "ObterProduto")]
         public async Task<ActionResult<Produto>> GetIdAsync(int id)
         {
@@ -71,7 +73,9 @@ namespace ApiCatalago.Controllers
             }
         }
 
-        //cria um produto na tabela produtos
+
+
+        // Inseri um produto na tabela produtos
         [HttpPost]
         public async Task<ActionResult> PostAsync(ProdutoDTO produtoDto)
         {
@@ -97,7 +101,7 @@ namespace ApiCatalago.Controllers
             }
 ;        }
 
-
+        // Atualiza o produto do id passado por parametro
         [HttpPut("{id:int:min(1)}")]
         public async Task<ActionResult> PutAsync(ProdutoDTO produtoDto, int id) 
         {
@@ -121,6 +125,8 @@ namespace ApiCatalago.Controllers
             }
         }
 
+
+         // Deleta o produto do ID passado por parametro
         [HttpDelete("{id:int:min(1)}")]
         public async Task<ActionResult> DeleteAsync(int id)
         {

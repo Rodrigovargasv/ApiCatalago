@@ -10,26 +10,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalago.Controllers
 {
+    
     [ApiVersion("1.0")]
     [Route("api/v{v:apiVersion}/[controller]/")]
     [ApiController]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    // Define os tipos de retorno mais commum e códigos de status retornado para cada tipo de metado action deste controller
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class CategoriasController : ControllerBase
     {
 
         private readonly ApiCatalagoDbContext _context;
 
-        // definado um instancia de  IMapper
+        // Definado um instância de  IMapper
         private readonly IMapper _mapper; 
 
-        // injentando serviços via construtor
+        // Injentando serviços via construtor
         public CategoriasController(ApiCatalagoDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-
+        // Retorna todas as categorias
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetAsync()
         {
@@ -50,6 +53,7 @@ namespace ApiCatalago.Controllers
 
         }
 
+        // Retorna todas a categoria de um produto pelo ID passado via parametro
         [HttpGet("produtos")]
         public async Task<ActionResult<IEnumerable<CategoriaDTO>>> GetAllAsync()
         {
@@ -69,7 +73,7 @@ namespace ApiCatalago.Controllers
             }
         }
 
-
+        // Retorna a categoria do ID passado via parametro
         [HttpGet("{id:int:min(1)}", Name = "ObterCategoria")]
         public async Task<ActionResult<CategoriaDTO>> GetIdAsync(int id)
         {
@@ -93,6 +97,7 @@ namespace ApiCatalago.Controllers
         }
 
 
+        // Inseri uma categoria no banco.
         [HttpPost]
         public async Task<ActionResult> PostAsync(CategoriaDTO categoriaDto)
         {
@@ -121,7 +126,7 @@ namespace ApiCatalago.Controllers
         }
 
 
-
+        // Atualiza uma categoria com o ID passado no parametro
         [HttpPut("{id:int:min(1)}")]
         public async Task<ActionResult> PutAsync(CategoriaDTO categoriaDto, int id)
         {
@@ -146,6 +151,8 @@ namespace ApiCatalago.Controllers
             }
         }
 
+
+        // Remove uma categoria do banco do ID passado no parametro
         [HttpDelete("id:int")]
         public async Task<ActionResult<CategoriaDTO>> DeleteAsync(int id)
         {
@@ -172,8 +179,6 @@ namespace ApiCatalago.Controllers
 
 
         }
-
-
     }
 }
 
