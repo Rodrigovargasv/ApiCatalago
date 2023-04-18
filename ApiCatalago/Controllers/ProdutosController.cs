@@ -14,7 +14,9 @@ namespace ApiCatalago.Controllers
     [ApiVersion("1.0")]
     [Route("api/v{v:apiVersion}/[controller]")]
     [ApiController]
-   
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    // Define os tipos de retorno mais commum e códigos de status retornado para cada tipo de metado action deste controller
+    [ApiConventionType(typeof(DefaultApiConventions))]
     public class ProdutosController : ControllerBase
     {
         // Instância a conexão com banco de dados
