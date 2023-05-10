@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "l6rIALTj92Ws+fYYkMaS9YJvmCVnQnFCCZdUKlgiCId0edODzd/yMidUVaa9v5/EFHy8DFgUnMz1zMiHEeEcFQ==",
+  "dgSpecHash": "STROYrlPpSvxTezBd0Q+eDkk7KFy5DKdNYrfUTN0AWJkSAHsjKC4RE1OaYDrGdkKUj9QKaLIz22y/HVBxqXsMg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+  "projectFilePath": "C:\\Users\\revon\\Source\\Repos\\Rodrigovargasv\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\revon\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\revon\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
@@ -102,5 +102,12 @@
     "C:\\Users\\revon\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\revon\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nuget.esistem.com.br:61438/v3/index.json'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

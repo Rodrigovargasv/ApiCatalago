@@ -4873,26 +4873,36 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\revon\\.nuget\\packages\\": {}
+    "C:\\Users\\revon\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+      "projectUniqueName": "C:\\Users\\revon\\Source\\Repos\\Rodrigovargasv\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
       "projectName": "ApiCatalago",
-      "projectPath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
+      "projectPath": "C:\\Users\\revon\\Source\\Repos\\Rodrigovargasv\\ApiCatalago\\ApiCatalago\\ApiCatalago.csproj",
       "packagesPath": "C:\\Users\\revon\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\revon\\Desktop\\ApiCatalogo\\ApiCatalago\\ApiCatalago\\obj\\",
+      "outputPath": "C:\\Users\\revon\\Source\\Repos\\Rodrigovargasv\\ApiCatalago\\ApiCatalago\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages",
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\revon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.1.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\System\\Components\\Packages": {},
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://nuget.esistem.com.br:61438/v3/index.json": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4988,5 +4998,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nuget.esistem.com.br:61438/v3/index.json'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
+    }
+  ]
 }

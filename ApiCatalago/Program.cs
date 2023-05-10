@@ -26,7 +26,8 @@ internal class Program
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen(c =>{
+        builder.Services.AddSwaggerGen(c =>
+        {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "APICatalogo", Version = "v1" });
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
@@ -60,16 +61,16 @@ internal class Program
         builder.Services.AddDbContext<ApiCatalagoDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("ApiCatagoDbContext"), builder => builder.MigrationsAssembly("ApiCatalago")));
 
-        // adicionado serviço do automapper
+        // Adiciona serviço do automapper
         builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-        // adicionando serviço de autenticação de usuario
+        // Adiciona serviço de autenticação de usuario
         builder.Services.AddIdentity<IdentityUser, IdentityRole>()
             .AddEntityFrameworkStores<ApiCatalagoDbContext>()
             .AddDefaultTokenProviders();
 
         //JWT
-        // adiciona o manipulador de autenticação e define o 
+        // Adiciona o manipulador de autenticação e define o 
         // esquema de autenticação usando : Bearer
         // valida o emissor, e audiencia e a chave 
         // usando a chave secreta valida a assinatura
@@ -80,23 +81,32 @@ internal class Program
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,
-                ValidateAudience =  true,
+                ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidAudience = builder.Configuration["TokenConfiguration:Audience"],
                 ValidIssuer = builder.Configuration["TokenConfiguration:Issuer"],
-                ValidateIssuerSigningKey= true,
+                ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
             }
         );
 
-        // adicionando serviço de versionamento
+        // Adiciona serviço de politica CORS 
+        builder.Services.AddCors(optios =>
+            {
+                optios.AddPolicy("EnableCORS", builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().Build();
+                });
+            });
+
+        // Adiciona serviço de versionamento
         builder.Services.AddApiVersioning(option =>
         {
             option.AssumeDefaultVersionWhenUnspecified = true;
-            option.DefaultApiVersion = new ApiVersion(1,0);
+            option.DefaultApiVersion = new ApiVersion(1, 0);
             option.ReportApiVersions = true;
         });
-    
+
         var app = builder.Build();
 
         // adicionado serviço de logger
@@ -129,7 +139,10 @@ internal class Program
         // adiciona o middleware de autenticacao
         app.UseAuthentication();
         app.UseAuthorization();
-      
+
+        // adiciona o middleware para a definição de politicas CORS
+        app.UseCors("EnableCORS");
+
         app.MapControllers();
         app.Run();
     }
